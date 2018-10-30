@@ -1,5 +1,5 @@
 body {
-  font-size: .875rem;
+  font-size: 10px;
 }
 
 .feather {
@@ -58,7 +58,7 @@ body {
 }
 
 .sidebar-heading {
-  font-size: .75rem;
+  font-size: .45rem;
   text-transform: uppercase;
 }
 

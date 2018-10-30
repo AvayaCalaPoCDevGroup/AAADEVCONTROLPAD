@@ -59,13 +59,15 @@ public class PeticionVPS extends HttpServlet {
      * idioma = el idioma del audio
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("Petición POST");
+    	logger.info("Petición VPS doPOST");
+    	response.setHeader("Content-Type", "application/json; charset=UTF-8");
         PrintWriter out = response.getWriter();
         String audio = request.getParameter("audio");
         System.out.println(audio);
         String transcript;
         try {
             transcript = vpsPOST(audio);
+            logger.info("transcript: " + transcript);
             out.println(transcript);
         } catch (UnirestException ex) {
            logger.error(ex);

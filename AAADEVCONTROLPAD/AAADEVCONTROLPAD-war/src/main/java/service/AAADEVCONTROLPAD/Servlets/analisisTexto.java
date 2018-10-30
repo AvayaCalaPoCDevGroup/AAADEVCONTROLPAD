@@ -71,6 +71,7 @@ public class analisisTexto extends HttpServlet {
             throws ServletException, IOException {
     	logger.info("Solicitud POST análisisTexto");
         setAccessControlHeaders(response);
+        response.setHeader("Content-Type", "application/json; charset=UTF-8");
         PrintWriter out = response.getWriter();
         logger.info("languaje = "+ myBeanObj_SPTT.getLanguaje());
         if (Watson == false || Natural == false) {
@@ -88,14 +89,13 @@ public class analisisTexto extends HttpServlet {
                 if (myBeanObj_SPTT.getLanguaje().equals("es-MX")) {
                 	logger.info("Languaje = es-MX = " + myBeanObj_SPTT.getLanguaje());
                 	myBeanObj_LT = new Languaje_Translator_Bean();
-                	
                     myBeanObj_LT.setModelId("es-en"); // Null point Exception
                     logger.info("Languaje_Translator");
-                    //WATASON LANGUAJE TRANSLATOR
-                    texto = Languaje_Translator.main(texto);
                     //WATSON Assistant
                     logger.info("Watson_Assistant");
                     String intent = Watson_Assistant.main(texto);
+                  //WATASON LANGUAJE TRANSLATOR
+                    texto = Languaje_Translator.main(texto);
                     //WATASON NAtural Languaje
                     logger.info("Natural_Language_Understanding");
                     String[] arregloEmociones = Natural_Language_Understanding.main(texto);
@@ -114,11 +114,6 @@ public class analisisTexto extends HttpServlet {
                 if (myBeanObj_SPTT.getLanguaje().equals("pt-BR")) {
                 	logger.info("Languaje = pt-BR = " + myBeanObj_SPTT.getLanguaje());
                 	myBeanObj_LT = new Languaje_Translator_Bean();
-                	
-                    myBeanObj_LT.setModelId("pt-en"); //Null Point Exception
-                    logger.info("Languaje_Translator");
-                    //WATASON LANGUAJE TRANSLATOR
-                    texto = Languaje_Translator.main(texto);
                     //WATSON Assistant
                     logger.info("Watson_Assistant");
                     String intent = Watson_Assistant.main(texto);
@@ -126,6 +121,10 @@ public class analisisTexto extends HttpServlet {
                     intent = Languaje_Translator.main(intent);
                     myBeanObj_LT.setModelId("en-pt");
                     intent = Languaje_Translator.main(intent);
+                    myBeanObj_LT.setModelId("pt-en");
+                    logger.info("Languaje_Translator");
+                    //WATASON LANGUAJE TRANSLATOR
+                    texto = Languaje_Translator.main(texto);
                     //WATASON NAtural Languaje
                     logger.info("Natural_Language_Understanding");
                     String[] arregloEmociones = Natural_Language_Understanding.main(texto);

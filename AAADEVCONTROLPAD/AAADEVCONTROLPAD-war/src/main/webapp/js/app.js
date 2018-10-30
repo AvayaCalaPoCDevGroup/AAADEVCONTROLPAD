@@ -4,17 +4,17 @@
  * and open the template in the editor.
  */
 
-console.log("funciona app.js 10/16/2018");
+console.log("funciona app.js áááá é10/16/2018");
 /*
  * 
  * variables
  */
 var contador = 0;
-var angv = 0;
-var sadv = 0;
-var fearv = 0;
-var disgv = 0;
-var joyv = 0;
+var angv = 0.10;
+var sadv = 0.20;
+var fearv = 0.20;
+var disgv = 0.23;
+var joyv = 0.27;
 var languajeindex = "";
 
 /*
@@ -64,7 +64,7 @@ var languajeindex = "";
         }
         if (languaje === 'portugües') {
             idiomaPortugues();
-            swal('Você selecionou ' + languaje);
+            swal('Select ' + languaje);
             obtenerGrabaciones();
             languajeindex = 'portugües';
         }
@@ -76,6 +76,8 @@ var languajeindex = "";
     }
 
 })();
+
+
 
 
 
@@ -186,7 +188,7 @@ function obtenerGrabaciones() {
             }
         }
     });
-    xhr.open("GET", "https://breeze2-132.collaboratory.avaya.com/services/AAADEVCONTROLPAD/Grabaciones/web/Watson/");
+    xhr.open("GET", "http://localhost:8085/AAADEVURIEL_PRUEBAS_WATSON-war/Grabaciones/web/Watson/");
     xhr.setRequestHeader("Content-Type", "application/json");
 
     xhr.send(data);
@@ -205,9 +207,10 @@ function Procesar() {
 
     var xhr = new XMLHttpRequest();
     xhr.withCredentials = true;
-
+    
     xhr.addEventListener("readystatechange", function () {
         if (this.readyState === 4) {
+           
             console.log(this.responseText);
             let myObj = JSON.parse(this.responseText);
 
@@ -270,11 +273,12 @@ function Procesar() {
                         fearv = myObj.Fear;
                         disgv = myObj.Disgust;
                         joyv = myObj.Joy;
+                        
                     }
                 }
             });
             //2
-            xhr.open("POST", "https://breeze2-132.collaboratory.avaya.com/services/AAADEVCONTROLPAD/analisisTexto");
+            xhr.open("POST", "http://localhost:8085/AAADEVURIEL_PRUEBAS_WATSON-war/analisisTexto");
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
             xhr.send(data);
@@ -283,7 +287,7 @@ function Procesar() {
         }
     });
     //3
-    xhr.open("POST", "https://breeze2-132.collaboratory.avaya.com/services/AAADEVCONTROLPAD/PeticionVPS?audio="+ wav);
+    xhr.open("POST", "http://localhost:8085/AAADEVURIEL_PRUEBAS_WATSON-war/PeticionVPS?audio="+wav);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
     xhr.send(data);
@@ -293,88 +297,143 @@ function Procesar() {
 
 function Ver() {
     if (languajeindex === 'español') {
-            var chart = new CanvasJS.Chart("chartContainer", {
-        theme: "light2", // "light1", "light2", "dark1", "dark2"
-        exportEnabled: true,
-        animationEnabled: true,
-        title: {
-            text: "Resultados"
-        },
-        data: [{
-                type: "pie",
-                startAngle: 25,
-                toolTipContent: "<b>{label}</b>: {y}%",
-                showInLegend: "true",
-                legendText: "{label}",
-                indexLabelFontSize: 16,
-                indexLabel: "{label} - {y}%",
-                dataPoints: [
-                    {y: angv, label: "Enfado"},
-                    {y: sadv, label: "Tristeza"},
-                    {y: fearv, label: "Temor"},
-                    {y: disgv, label: "Asco"},
-                    {y: joyv, label: "Alegría"}
+        let Enfado = angv,
+                Tristeza = sadv,
+                Temor = fearv,
+                Asco = disgv,
+                Alegría = joyv;
 
-                ]
-            }]
-    });
-    chart.render();
+        let perfil = Math.max(Enfado, Tristeza, Temor, Asco, Alegría);
+
+        let variableMasAlta = Enfado === perfil ? "Enfado" :
+                Tristeza === perfil ? "Tristeza" :
+                Temor === perfil ? "Temor" :
+                Asco === perfil ? "Asco" :
+                Alegría === perfil ? "Alegría" : null;
+
+
+        console.log(variableMasAlta);
+
+
+
+        var chart = new CanvasJS.Chart("chartContainer", {
+            theme: "light1", // "light1", "light2", "dark1", "dark2"
+            exportEnabled: false,
+            animationEnabled: true,
+            title: {
+                text: "Puntaje mayor " + variableMasAlta + " = " + Math.max(angv, sadv, fearv, disgv, joyv)
+            },
+            data: [{
+                    type: "pie",
+                    startAngle: 25,
+                    toolTipContent: "<b>{label}</b>: {y}%",
+                    showInLegend: "false",
+                    legendText: "{label}",
+                    indexLabelFontSize: 16,
+                    indexLabel: "{label} - {y}%",
+                    dataPoints: [
+                        {y: angv, label: "Enfado"},
+                        {y: sadv, label: "Tristeza"},
+                        {y: fearv, label: "Temor"},
+                        {y: disgv, label: "Asco"},
+                        {y: joyv, label: "Alegría"}
+
+                    ]
+                }]
+        });
+        chart.render();
     }
     if (languajeindex === 'english') {
-           var chart = new CanvasJS.Chart("chartContainer", {
-        theme: "light2", // "light1", "light2", "dark1", "dark2"
-        exportEnabled: true,
-        animationEnabled: true,
-        title: {
-            text: "Results"
-        },
-        data: [{
-                type: "pie",
-                startAngle: 25,
-                toolTipContent: "<b>{label}</b>: {y}%",
-                showInLegend: "true",
-                legendText: "{label}",
-                indexLabelFontSize: 16,
-                indexLabel: "{label} - {y}%",
-                dataPoints: [
-                    {y: angv, label: "Anger"},
-                    {y: sadv, label: "Sadness"},
-                    {y: fearv, label: "Fear"},
-                    {y: disgv, label: "Disgust"},
-                    {y: joyv, label: "Joy"}
 
-                ]
-            }]
-    });
-    chart.render();
+        let Anger = angv,
+                Sadness = sadv,
+                Fear = fearv,
+                Disgust = disgv,
+                Joy = joyv;
+
+        let perfil = Math.max(Anger, Sadness, Fear, Disgust, Joy);
+
+        let variableMasAlta = Anger === perfil ? "Anger" :
+                Sadness === perfil ? "Sadness" :
+                Fear === perfil ? "Fear" :
+                Disgust === perfil ? "Disgust" :
+                Joy === perfil ? "Joy" : null;
+
+
+        console.log(variableMasAlta);
+
+        var chart = new CanvasJS.Chart("chartContainer", {
+            theme: "light2", // "light1", "light2", "dark1", "dark2"
+            exportEnabled: false,
+            animationEnabled: true,
+            title: {
+                text: "Senior score " + variableMasAlta + " = " + Math.max(angv, sadv, fearv, disgv, joyv)
+            },
+            data: [{
+                    type: "pie",
+                    startAngle: 25,
+                    toolTipContent: "<b>{label}</b>: {y}%",
+                    showInLegend: "true",
+                    legendText: "{label}",
+                    indexLabelFontSize: 16,
+                    indexLabel: "{label} - {y}%",
+                    dataPoints: [
+                        {y: angv, label: "Anger"},
+                        {y: sadv, label: "Sadness"},
+                        {y: fearv, label: "Fear"},
+                        {y: disgv, label: "Disgust"},
+                        {y: joyv, label: "Joy"}
+
+                    ]
+                }]
+        });
+        chart.render();
     }
     if (languajeindex === 'portugües') {
-            var chart = new CanvasJS.Chart("chartContainer", {
-        theme: "light2", // "light1", "light2", "dark1", "dark2"
-        exportEnabled: true,
-        animationEnabled: true,
-        title: {
-            text: "Resultados"
-        },
-        data: [{
-                type: "pie",
-                startAngle: 25,
-                toolTipContent: "<b>{label}</b>: {y}%",
-                showInLegend: "true",
-                legendText: "{label}",
-                indexLabelFontSize: 16,
-                indexLabel: "{label} - {y}%",
-                dataPoints: [
-                    {y: angv, label: "Raiva"},
-                    {y: sadv, label: "Tristeza"},
-                    {y: fearv, label: "Medo"},
-                    {y: disgv, label: "Nojo"},
-                    {y: joyv, label: "Alegria"}
 
-                ]
-            }]
-    });
-    chart.render();
+        var Raiva = angv,
+                Tristeza = sadv,
+                Medo = fearv,
+                Nojo = disgv,
+                Alegria = joyv;
+
+        perfil = Math.max(Raiva, Tristeza, Medo, Nojo, Alegria);
+
+        variableMasAlta = Raiva === perfil ? "Raiva" :
+                Tristeza === perfil ? "Tristeza" :
+                Medo === perfil ? "Medo" :
+                Nojo === perfil ? "Nojo" :
+                Alegria === perfil ? "Alegria" : null;
+
+
+        console.log(variableMasAlta);
+
+        var chart = new CanvasJS.Chart("chartContainer", {
+            theme: "light2", // "light1", "light2", "dark1", "dark2"
+            exportEnabled: false,
+            animationEnabled: true,
+            title: {
+                text: "Pontuação sênior " + variableMasAlta + " = " + Math.max(angv, sadv, fearv, disgv, joyv)
+            },
+            data: [{
+                    type: "pie",
+                    startAngle: 25,
+                    toolTipContent: "<b>{label}</b>: {y}%",
+                    showInLegend: "true",
+                    legendText: "{label}",
+                    indexLabelFontSize: 16,
+                    indexLabel: "{label} - {y}%",
+                    dataPoints: [
+                        {y: angv, label: "Raiva"},
+                        {y: sadv, label: "Tristeza"},
+                        {y: fearv, label: "Medo"},
+                        {y: disgv, label: "Nojo"},
+                        {y: joyv, label: "Alegria"}
+
+                    ]
+                }]
+        });
+        chart.render();
     }
 
 
@@ -392,7 +451,7 @@ function validar() {
         if (this.readyState === 4) {
             console.log(this.responseText);
             let myObj = JSON.parse(this.responseText);
-            if (myObj.Status === "true") {
+            if (myObj.Status === true) {
                 swal(
                         'Good!',
                         'Credenciales insertadas!',
@@ -411,7 +470,7 @@ function validar() {
         }
     });
 
-    xhr.open("GET", "https://breeze2-132.collaboratory.avaya.com/services/AAADEVCONTROLPAD/Authentication");
+    xhr.open("GET", "http://devavaya.ddns.net:8080/AAADEVURIEL_PRUEBAS_WATSON-war-1.0.0.0.0/Authentication");
 
     xhr.send(data);
 }
@@ -430,7 +489,7 @@ function idiomaIngles() {
         }
     });
 
-    xhr.open("POST", "https://breeze2-132.collaboratory.avaya.com/services/AAADEVCONTROLPAD/STT");
+    xhr.open("POST", "http://localhost:8085/AAADEVURIEL_PRUEBAS_WATSON-war/STT");
     xhr.send(data);
 }
 
@@ -448,7 +507,7 @@ function idiomaEspañol() {
         }
     });
 
-    xhr.open("POST", "https://breeze2-132.collaboratory.avaya.com/services/AAADEVCONTROLPAD/STT");
+    xhr.open("POST", "http://localhost:8085/AAADEVURIEL_PRUEBAS_WATSON-war/STT");
     xhr.send(data);
 }
 
@@ -466,7 +525,6 @@ function idiomaPortugues() {
         }
     });
 
-    xhr.open("POST", "https://breeze2-132.collaboratory.avaya.com/services/AAADEVCONTROLPAD/STT");
+    xhr.open("POST", "http://localhost:8085/AAADEVURIEL_PRUEBAS_WATSON-war/STT");
     xhr.send(data);
 }
-

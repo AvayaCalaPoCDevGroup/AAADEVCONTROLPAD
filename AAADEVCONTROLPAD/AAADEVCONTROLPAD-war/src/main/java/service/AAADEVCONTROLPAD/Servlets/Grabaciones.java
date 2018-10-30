@@ -80,7 +80,7 @@ public class Grabaciones extends HttpServlet {
     }
 
     private void setAccessControlHeaders(HttpServletResponse response) {
-        response.setHeader("Access-Control-Allow-Origin", "http://devavaya.ddns.net:8080");
+        response.setHeader("Access-Control-Allow-Origin", "http://localhost:8085");
         response.setHeader("Access-Control-Allow-Credentials", "true");
         response.setHeader("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With");

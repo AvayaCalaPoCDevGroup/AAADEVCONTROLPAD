@@ -207,7 +207,6 @@ public class ControladorGrabaciones extends HttpServlet {
 
         final int lengthUrlPre = reqURIForDelete.indexOf(str[5]);
         final String deleteFilePath = userHomeDir + "/" + reqURIForDelete.substring(lengthUrlPre, reqURIForDelete.length());
-
         final File file = new File(deleteFilePath);
         if (file.exists() && file.delete()) {
             resp.setStatus(HttpServletResponse.SC_OK);
@@ -267,6 +266,7 @@ public class ControladorGrabaciones extends HttpServlet {
         }
         return stringBuilder.toString();
     }
+    
   //AUTORIZAR CROSS DOMAIN
     @Override
     protected void doOptions(HttpServletRequest request, HttpServletResponse response)

@@ -1,7 +1,6 @@
 package service.AAADEVCONTROLPAD;
 
 import java.io.File;
-import java.util.ArrayList;
 
 import org.json.JSONObject;
 
@@ -16,8 +15,6 @@ public class Arrays {
 	 * en el método GET a Controlador de Grabaciones.
 	 */
 	public static JSONObject main(String recordLocationOnHttpServer) {
-		@SuppressWarnings({ "unused", "rawtypes" })
-		ArrayList filess = new ArrayList<>();
 		JSONObject json = new JSONObject();
 		int index = 0;
 		String dirPath = recordLocationOnHttpServer;
@@ -27,10 +24,10 @@ public class Arrays {
 			System.out.println("The directory is empty");
 		} else {
 
-			for (String aFile : files) {
-				json.put("Index " + index, aFile);
-				index++;
-			}
+            for(int contador=files.length-1; contador>=0; contador--){
+                json.put("Index "+index , files[contador]);
+                index++;
+             }
 
 			System.out.println(json);
 
