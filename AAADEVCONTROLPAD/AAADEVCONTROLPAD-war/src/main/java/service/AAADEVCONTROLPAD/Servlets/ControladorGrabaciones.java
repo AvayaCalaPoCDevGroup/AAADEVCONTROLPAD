@@ -69,7 +69,7 @@ public class ControladorGrabaciones extends HttpServlet {
      * el audio web/Watson/
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	logger.info("Metodo GET");
+//    	logger.info("Metodo GET");
     	setAccessControlHeaders(response);
         String reviewLocationOnHttpServer = null;
         File audioFile = null;
@@ -83,7 +83,7 @@ public class ControladorGrabaciones extends HttpServlet {
         final String folderPath = reqURIForReview.substring(completeUrl, reqURIForReview.lastIndexOf('/'));
         reviewLocationOnHttpServer = userHomeDir + folderPath;
         audioFile = new File(reviewLocationOnHttpServer + "/" + recFileName);
-        logger.info("audioFile");
+//        logger.info("audioFile");
         response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         response.setHeader("Pragma", "no-cache");
         response.setHeader("Expires", "0");
@@ -98,7 +98,7 @@ public class ControladorGrabaciones extends HttpServlet {
         }
         
         out.flush();
-        logger.info("out.flush()");
+//        logger.info("out.flush()");
       
     }
 
@@ -113,7 +113,7 @@ public class ControladorGrabaciones extends HttpServlet {
      * restRecordURI -> con la ruta que se ha establecido /web/Watson/
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        logger.info("Método POST");
+//        logger.info("Método POST");
     	setAccessControlHeaders(response);
         String recFileName = null;
         System.out.println("doPost - Start");
@@ -148,7 +148,7 @@ public class ControladorGrabaciones extends HttpServlet {
                     dir.mkdirs();
                 }
             }
-            logger.info(recordLocationOnHttpServer);
+//            logger.info(recordLocationOnHttpServer);
             
             audioFile = new File(recordLocationOnHttpServer + "/" + recFileName);
 
@@ -170,7 +170,7 @@ public class ControladorGrabaciones extends HttpServlet {
                 }
             }
             JSONObject grabaciones = Arrays.main(recordLocationOnHttpServer);
-            logger.info(grabaciones);
+//            logger.info(grabaciones);
             audioInput.close();
             saveAudioFile.flush();
             saveAudioFile.close();
@@ -182,7 +182,7 @@ public class ControladorGrabaciones extends HttpServlet {
             try {
                 responseJson.put("status", "failed to save the recording on web server");
             } catch (JSONException ex) {
-            	logger.info("Error: " + ex);
+//            	logger.info("Error: " + ex);
                 // Logger.getLogger(FileSaveServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -199,7 +199,7 @@ public class ControladorGrabaciones extends HttpServlet {
      * al final de la ruta especificar el archivo de audio que desea borrar
      */
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        logger.info("Método DELETE"); 
+//        logger.info("Método DELETE"); 
     	setAccessControlHeaders(resp);
         JSONObject responseJson = new JSONObject();
         String reqURIForDelete = req.getRequestURL().toString();

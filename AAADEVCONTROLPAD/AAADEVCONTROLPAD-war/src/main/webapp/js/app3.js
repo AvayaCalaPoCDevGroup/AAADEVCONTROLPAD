@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 console.log("Funciona app3 29/10/2018");
-
+//console.log("Funciona app3 29/10/2018");
 var data = null;
 var contador = 0;
 let angv = 0;
@@ -23,9 +23,78 @@ var acomodar = document.getElementById('th-sm');
 var acomodarOrigen = document.getElementById('th-sm1');
 var acomodarDestino = document.getElementById('th-sm2');
 
-obtenerGrabaciones();
+//Obtener el dominio. 11 De enero 2019
 
 
+var absolutePath = getAbsolutePath();
+
+var selectBox = document.getElementById("mySelect");
+
+function getAbsolutePath() {
+    var loc = window.location;
+    var pathName = loc.pathname.substring(0, loc.pathname.lastIndexOf('/') + 1);
+    return loc.href.substring(0, loc.href.length - ((loc.pathname + loc.search + loc.hash).length - pathName.length));
+}
+/*
+ * Recargar tabla
+ */
+function validar() {
+    if (selectBox.selectedIndex === 0) {
+        document.getElementById('th-sm').innerHTML = "Hora";
+        document.getElementById('th-sm1').innerHTML = "Origen";
+        document.getElementById('th-sm2').innerHTML = "Destino";
+        document.getElementById('th-sm3').innerHTML = "Audio";
+        document.getElementById('th-sm4').innerHTML = "Transcripción";
+        document.getElementById('th-sm5').innerHTML = "Confianza";
+        document.getElementById('th-sm6').innerHTML = "Intención";
+        document.getElementById('th-sm7').innerHTML = "Emociones";
+    }
+    if (selectBox.selectedIndex === 1) {
+        document.getElementById('th-sm').innerHTML = "Hora";
+        document.getElementById('th-sm1').innerHTML = "Origem";
+        document.getElementById('th-sm2').innerHTML = "Destino";
+        document.getElementById('th-sm3').innerHTML = "Audio";
+        document.getElementById('th-sm4').innerHTML = "Transcrição";
+        document.getElementById('th-sm5').innerHTML = "Confiança";
+        document.getElementById('th-sm6').innerHTML = "Intenção";
+        document.getElementById('th-sm7').innerHTML = "Emoções";
+    }
+    if (selectBox.selectedIndex === 2) {
+        document.getElementById('th-sm').innerHTML = "Time";
+        document.getElementById('th-sm1').innerHTML = "Origin";
+        document.getElementById('th-sm2').innerHTML = "Destino";
+        document.getElementById('th-sm3').innerHTML = "Destination";
+        document.getElementById('th-sm4').innerHTML = "Transcription";
+        document.getElementById('th-sm5').innerHTML = "Confidence";
+        document.getElementById('th-sm6').innerHTML = "Intention";
+        document.getElementById('th-sm7').innerHTML = "Emotions";
+
+    }
+
+
+    $("#tbody").empty();
+    obtenerGrabaciones();
+
+}
+// FIN 11 De enero 2019
+
+validarSession();
+
+function validarSession() {
+    var session = sessionStorage.getItem('watsonUruario');
+    console.log(session);
+    if (session === "true") {
+        obtenerGrabaciones();
+    } else {
+        window.location.href = "index.html";
+    }
+
+}
+
+
+function cerrarSesion() {
+    sessionStorage.clear();
+}
 
 function obtenerGrabaciones() {
     console.log("Ontener Grabaciones");
@@ -35,140 +104,179 @@ function obtenerGrabaciones() {
     xhr.withCredentials = true;
 
     xhr.addEventListener("readystatechange", function () {
-    if (this.readyState === 4) {
-    let myObj = JSON.parse(this.responseText);
+        if (this.readyState === 4) {
+            let myObj = JSON.parse(this.responseText);
             for (let i = 0; i <= Object.keys(myObj).length - 1; i++) {
 
-    let tbody = document.querySelector('.tbody'); //<tbody>
+                let tbody = document.querySelector('.tbody'); //<tbody>
 
-            let nuevoTBodyTr = document.createElement("tr");
-            nuevoTBodyTr.setAttribute("id", myObj["Index " + i + ""]);
-            let nuevoTBodyTh = document.createElement("th");
-            nuevoTBodyTh.setAttribute("class", "wavs " + contador);
-            nuevoTBodyTh.setAttribute("style", "visibility: hidden");
-            let wav = document.createTextNode(myObj["Index " + i + ""]);
-            let wavNombre = (myObj["Index " + i + ""]);
-            res = wavNombre.replace(".wav", ".txt");
+                let nuevoTBodyTr = document.createElement("tr");
+                nuevoTBodyTr.setAttribute("id", myObj["Index " + i + ""]);
+                let nuevoTBodyTh = document.createElement("th");
+                nuevoTBodyTh.setAttribute("class", "wavs " + contador);
+                nuevoTBodyTh.setAttribute("style", "visibility: hidden");
+                let wav = document.createTextNode(myObj["Index " + i + ""]);
+                let wavNombre = (myObj["Index " + i + ""]);
+                res = wavNombre.replace(".wav", ".txt");
 //                nuevoTBodyTh.appendChild(wav);
 //                nuevoTBodyTr.appendChild(nuevoTBodyTh);
 
 
-            contador++;
-            var data = null;
-            var xhr = new XMLHttpRequest();
-            xhr.withCredentials = true;
-            xhr.addEventListener("readystatechange", function () {
+                contador++;
+                var data = null;
+                var xhr = new XMLHttpRequest();
+                xhr.withCredentials = true;
+                xhr.addEventListener("readystatechange", function () {
 
-            if (this.readyState === 4) {
+                    if (this.readyState === 4) {
 
-            myObjIntn = JSON.parse(this.responseText);
-                    for (let j = 1; j <= 10; j++) {
-            let nuevoTrTd = document.createElement("td");
-                    let nuevoaudio = document.createElement("AUDIO");
-                    if (j === 1) {
-            let nuevoButtonProcesar = document.createElement('td');
-                    var texto = document.createTextNode(myObjIntn.fechayHora);
-                    nuevoButtonProcesar.appendChild(texto);
-                    nuevoTrTd.appendChild(nuevoButtonProcesar);
+                        myObjIntn = JSON.parse(this.responseText);
+
+
+                        for (let j = 1; j <= 10; j++) {
+                            let nuevoTrTd = document.createElement("td");
+                            let nuevoaudio = document.createElement("AUDIO");
+                            if (j === 1) {
+                                let nuevoButtonProcesar = document.createElement('td');
+                                var texto = document.createTextNode(myObjIntn.fechayHora);
+                                nuevoButtonProcesar.appendChild(texto);
+                                nuevoTrTd.appendChild(nuevoButtonProcesar);
+                            }
+                            if (j === 2) {
+
+
+                                let nuevoButtonProcesar = document.createElement('td');
+                                var texto = document.createTextNode(myObjIntn.Origen);
+                                nuevoButtonProcesar.appendChild(texto);
+                                nuevoTrTd.appendChild(nuevoButtonProcesar);
+                            }
+                            if (j === 3) {
+
+                                let nuevoButtonProcesar = document.createElement('td');
+                                var texto = document.createTextNode(myObjIntn.Destino);
+                                nuevoButtonProcesar.appendChild(texto);
+                                nuevoTrTd.appendChild(nuevoButtonProcesar);
+                            }
+                            if (j === 4) {
+                                let wav2 = (myObj["Index " + i + ""]);
+                                nuevoaudio.setAttribute("class", "democlass");
+                                nuevoaudio.controls = true;
+                                if (selectBox.selectedIndex === 0) {
+                                    nuevoaudio.setAttribute("src", absolutePath + "ControladorGrabaciones/web/Record/" + wav2);
+                                }
+                                if (selectBox.selectedIndex === 1) {
+                                    nuevoaudio.setAttribute("src", absolutePath + "ControladorGrabaciones/web/RecordPt/" + wav2);
+                                }
+                                if (selectBox.selectedIndex === 2) {
+                                    nuevoaudio.setAttribute("src", absolutePath + "ControladorGrabaciones/web/RecordEn/" + wav2);
+                                }
+
+                                nuevoTrTd.appendChild(nuevoaudio);
+                            }
+
+
+
+                            if (j === 5) {
+                                let nuevoButtonProcesar = document.createElement('td');
+                                var texto = document.createTextNode(myObjIntn.Transcript);
+                                nuevoButtonProcesar.appendChild(texto);
+                                nuevoTrTd.appendChild(nuevoButtonProcesar);
+                            }
+                            if (j === 6) {
+
+
+                                let confianza = myObjIntn.COnfidence;
+                                let nuevoButtonProcesar = document.createElement('td');
+                                var texto = document.createTextNode(confianza);
+                                nuevoButtonProcesar.appendChild(texto);
+                                nuevoTrTd.appendChild(nuevoButtonProcesar);
+                            }
+                            if (j === 7) {
+
+
+                                let intent = myObjIntn.Intent.Intent;
+                                let nuevoButtonProcesar = document.createElement('td');
+                                var texto = document.createTextNode(intent);
+                                nuevoButtonProcesar.appendChild(texto);
+                                nuevoTrTd.appendChild(nuevoButtonProcesar);
+                            }
+
+                            if (j === 8) {
+                                // let wav2 = (myObj["Index " + i + ""]);
+                                let nuevoButtonProcesar = document.createElement('button');
+                                nuevoButtonProcesar.setAttribute("data-toggle", "modal");
+                                nuevoButtonProcesar.setAttribute("data-target", "#exampleModal");
+                                nuevoButtonProcesar.setAttribute("class", "btn btn-info");
+                                nuevoButtonProcesar.setAttribute("onclick", "Ver(event)");
+                                //Modificado 11 de Enero 2019
+                                if (selectBox.selectedIndex === 0) {
+                                    var texto = document.createTextNode('Ver');
+                                }
+                                if (selectBox.selectedIndex === 1) {
+                                    var texto = document.createTextNode('Ver');
+                                }
+                                if (selectBox.selectedIndex === 2) {
+                                    var texto = document.createTextNode('Watch');
+                                }
+                                nuevoButtonProcesar.appendChild(texto);
+                                nuevoTrTd.appendChild(nuevoButtonProcesar);
+                            }
+                            if (j === 9) {
+                                let info2 = document.createElement("input");
+                                info2.setAttribute("type", "checkbox");
+                                info2.setAttribute("name", wavNombre);
+                                info2.classList.add("borrar_contacto");
+                                nuevoTrTd.setAttribute("class", "borrar");
+                                nuevoTrTd.appendChild(info2);
+                            }
+
+
+                            nuevoTBodyTr.appendChild(nuevoTrTd);
+                        }
+
+                        tbody.appendChild(nuevoTBodyTr);
+                    }
+                    for_check();
+                });
+
+                xhr.open("GET", absolutePath + "inputIntent/web/Intent/" + res);
+                xhr.send(data);
+
             }
-            if (j === 2) {
 
-
-            let nuevoButtonProcesar = document.createElement('td');
-                    var texto = document.createTextNode(myObjIntn.Origen);
-                    nuevoButtonProcesar.appendChild(texto);
-                    nuevoTrTd.appendChild(nuevoButtonProcesar);
-            }
-            if (j === 3) {
-
-            let nuevoButtonProcesar = document.createElement('td');
-                    var texto = document.createTextNode(myObjIntn.Destino);
-                    nuevoButtonProcesar.appendChild(texto);
-                    nuevoTrTd.appendChild(nuevoButtonProcesar);
-            }
-            if (j === 4) {
-            let wav2 = (myObj["Index " + i + ""]);
-                    nuevoaudio.setAttribute("class", "democlass");
-                    nuevoaudio.controls = true;
-                    nuevoaudio.setAttribute("src", "https://breeze2-132.collaboratory.avaya.com/services/AAADEVCONTROLPAD/ControladorGrabaciones/web/Record/" + wav2);
-                    nuevoTrTd.appendChild(nuevoaudio);
-            }
-
-
-
-            if (j === 5) {
-            let nuevoButtonProcesar = document.createElement('td');
-                    var texto = document.createTextNode(myObjIntn.Transcript);
-                    nuevoButtonProcesar.appendChild(texto);
-                    nuevoTrTd.appendChild(nuevoButtonProcesar);
-            }
-            if (j === 6) {
-
-
-            let confianza = myObjIntn.COnfidence;
-                    let nuevoButtonProcesar = document.createElement('td');
-                    var texto = document.createTextNode(confianza);
-                    nuevoButtonProcesar.appendChild(texto);
-                    nuevoTrTd.appendChild(nuevoButtonProcesar);
-            }
-            if (j === 7) {
-
-
-            let intent = myObjIntn.Intent.Intent;
-                    let nuevoButtonProcesar = document.createElement('td');
-                    var texto = document.createTextNode(intent);
-                    nuevoButtonProcesar.appendChild(texto);
-                    nuevoTrTd.appendChild(nuevoButtonProcesar);
-            }
-
-            if (j === 8) {
-            // let wav2 = (myObj["Index " + i + ""]);
-            let nuevoButtonProcesar = document.createElement('button');
-                    nuevoButtonProcesar.setAttribute("data-toggle", "modal");
-                    nuevoButtonProcesar.setAttribute("data-target", "#exampleModal");
-                    nuevoButtonProcesar.setAttribute("class", "btn btn-info");
-                    nuevoButtonProcesar.setAttribute("onclick", "Ver()");
-                    var texto = document.createTextNode('Ver');
-                    nuevoButtonProcesar.appendChild(texto);
-                    nuevoTrTd.appendChild(nuevoButtonProcesar);
-            }
-            if (j === 9) {
-            let info2 = document.createElement("input");
-                    info2.setAttribute("type", "checkbox");
-                    info2.setAttribute("name", wavNombre);
-                    info2.classList.add("borrar_contacto");
-                    nuevoTrTd.setAttribute("class", "borrar");
-                    nuevoTrTd.appendChild(info2);
-            }
-
-
-            nuevoTBodyTr.appendChild(nuevoTrTd);
-            }
-
-            tbody.appendChild(nuevoTBodyTr);
-            }
-            for_check();
-            });
-            xhr.open("GET", "https://breeze2-132.collaboratory.avaya.com/services/AAADEVCONTROLPAD/inputIntent/web/Intent/" + res);
-            xhr.send(data);
         }
-        
-    }
-    
+
     }
     );
-            xhr.open("GET", "https://breeze2-132.collaboratory.avaya.com/services/AAADEVCONTROLPAD/Grabaciones/web/Record/");
-            xhr.setRequestHeader("Content-Type", "application/json");
-            xhr.send(data);
-            }
-        
+    if (selectBox.selectedIndex === 0) {
+        xhr.open("GET", absolutePath + "Grabaciones/web/Record/");
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(data);
+    }
+    if (selectBox.selectedIndex === 1) {
+        xhr.open("GET", absolutePath + "Grabaciones/web/RecordPt/");
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(data);
+    }
+    if (selectBox.selectedIndex === 2) {
+        xhr.open("GET", absolutePath + "Grabaciones/web/RecordEn/");
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(data);
+    }
+
+}
+
 
 /*
  * Desplegar emociones
  */
-function Ver() {
-    let tds = event.path[2].id;
-    console.log("TDS");
+function Ver(e) {
+
+    var path = e.path || (e.composedPath && e.composedPath());
+
+
+    let tds = path[2].id;
+
     console.log(tds);
 
     res = tds.replace(".wav", ".txt");
@@ -183,16 +291,15 @@ function Ver() {
     xhr.addEventListener("readystatechange", function () {
         if (this.readyState === 4) {
 
-            console.log(this.responseText);
             var myObjEmociones = JSON.parse(this.responseText);
 
-            angv = myObjEmociones.Anger;
-            sadv = myObjEmociones.sadness;
-            fearv = myObjEmociones.Fear;
-            disgv = myObjEmociones.Disgust;
-            joyv = myObjEmociones.Joy;
+            angv = (myObjEmociones.Anger * 100);
+            sadv = (myObjEmociones.sadness * 100);
+            fearv = (myObjEmociones.Fear * 100);
+            disgv = (myObjEmociones.Disgust * 100);
+            joyv = (myObjEmociones.Joy * 100);
 
-            if (languajeindex === 'español') {
+            if (selectBox.selectedIndex === 0) {
                 var Enfado = angv,
                         Tristeza = sadv,
                         Temor = fearv,
@@ -207,17 +314,12 @@ function Ver() {
                         Asco == perfil ? "Asco" :
                         Alegria == perfil ? "Alegria" : null;
 
-
-                console.log(variableMasAlta);
-
-
-
                 var chart = new CanvasJS.Chart("chartContainer", {
                     theme: "light1", // "light1", "light2", "dark1", "dark2"
                     exportEnabled: false,
                     animationEnabled: true,
                     title: {
-                        text: "Puntaje mayor " + variableMasAlta + " = " + Math.max(angv, sadv, fearv, disgv, joyv)
+                        text: "Puntaje mayor " + variableMasAlta + " = " + Math.max(angv, sadv, fearv, disgv, joyv) + "%"
                     },
                     data: [{
                             type: "pie",
@@ -239,23 +341,104 @@ function Ver() {
                 });
                 chart.render();
             }
+
+            if (selectBox.selectedIndex === 1) {
+                var Enfado = angv,
+                        Tristeza = sadv,
+                        Temor = fearv,
+                        Asco = disgv,
+                        Alegria = joyv;
+
+                var perfil = Math.max(Enfado, Tristeza, Temor, Asco, Alegria);
+
+                var variableMasAlta = Enfado == perfil ? "Irritado" :
+                        Tristeza == perfil ? "Tristeza" :
+                        Temor == perfil ? "Medo" :
+                        Asco == perfil ? "Nojo" :
+                        Alegria == perfil ? "Felicidade" : null;
+
+                var chart = new CanvasJS.Chart("chartContainer", {
+                    theme: "light1", // "light1", "light2", "dark1", "dark2"
+                    exportEnabled: false,
+                    animationEnabled: true,
+                    title: {
+                        text: "Pontuação sênior " + variableMasAlta + " = " + Math.max(angv, sadv, fearv, disgv, joyv) + "%"
+                    },
+                    data: [{
+                            type: "pie",
+                            startAngle: 25,
+                            toolTipContent: "<b>{label}</b>: {y}%",
+                            showInLegend: "false",
+                            legendText: "{label}",
+                            indexLabelFontSize: 16,
+                            indexLabel: "{label} - {y}%",
+                            dataPoints: [
+                                {y: angv, label: "Irritado"},
+                                {y: sadv, label: "Tristeza"},
+                                {y: fearv, label: "Medo"},
+                                {y: disgv, label: "Nojo"},
+                                {y: joyv, label: "Felicidade"}
+
+                            ]
+                        }]
+                });
+                chart.render();
+            }
+
+            if (selectBox.selectedIndex === 2) {
+                var Enfado = angv,
+                        Tristeza = sadv,
+                        Temor = fearv,
+                        Asco = disgv,
+                        Alegria = joyv;
+
+                var perfil = Math.max(Enfado, Tristeza, Temor, Asco, Alegria);
+
+                var variableMasAlta = Enfado == perfil ? "Anger" :
+                        Tristeza == perfil ? "Sadness" :
+                        Temor == perfil ? "Fear" :
+                        Asco == perfil ? "Disgust" :
+                        Alegria == perfil ? "Joy" : null;
+
+                var chart = new CanvasJS.Chart("chartContainer", {
+                    theme: "light1", // "light1", "light2", "dark1", "dark2"
+                    exportEnabled: false,
+                    animationEnabled: true,
+                    title: {
+                        text: "Senior Score " + variableMasAlta + " = " + Math.max(angv, sadv, fearv, disgv, joyv) + "%"
+                    },
+                    data: [{
+                            type: "pie",
+                            startAngle: 25,
+                            toolTipContent: "<b>{label}</b>: {y}%",
+                            showInLegend: "false",
+                            legendText: "{label}",
+                            indexLabelFontSize: 16,
+                            indexLabel: "{label} - {y}%",
+                            dataPoints: [
+                                {y: angv, label: "Anger"},
+                                {y: sadv, label: "Sadness"},
+                                {y: fearv, label: "Fear"},
+                                {y: disgv, label: "Disgust"},
+                                {y: joyv, label: "Joy"}
+
+                            ]
+                        }]
+                });
+                chart.render();
+            }
+
+
+
         }
     });
 
-    xhr.open("GET", "https://breeze2-132.collaboratory.avaya.com/services/AAADEVCONTROLPAD/inputTranscript/web/Intent/" + res);
+    xhr.open("GET", absolutePath + "inputIntent/web/Intent/" + res);
     xhr.send(data);
 
 }
 
-/*
- * Recargar tabla
- */
-function validar() {
 
-    $("#tbody").empty();
-    obtenerGrabaciones();
-
-}
 /*
  * SideBar Menu
  */
@@ -326,7 +509,7 @@ function acomodarValores() {
 
 
 function sortTableOrigen() {
-   
+
     var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
     table = document.getElementById("dtBasicExample");
     switching = true;
@@ -384,7 +567,7 @@ function sortTableOrigen() {
 
 
 function sortTableDestino() {
-   
+
     var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
     table = document.getElementById("dtBasicExample");
     switching = true;
@@ -471,8 +654,8 @@ function grabacionesEliminarTxt(grabaciones) {
     });
 
     for (i = 0; i < grabaciones.length; i++) {
-    	var grabacion = grabaciones[i].replace(".wav", ".txt");
-        xhr.open("DELETE", "https://breeze2-132.collaboratory.avaya.com/services/AAADEVCONTROLPAD/inputIntent/web/Intent/" + grabacion);
+        var grabacion = grabaciones[i].replace(".wav", ".txt");
+        xhr.open("DELETE", absolutePath + "inputIntent/web/Intent/" + grabacion);
         xhr.send(data);
     }
 
@@ -508,9 +691,20 @@ function  grabacionesEliminarwav(grabaciones) {
     });
 
     for (i = 0; i < grabaciones.length; i++) {
-     
-        xhr.open("DELETE", "https://breeze2-132.collaboratory.avaya.com/services/AAADEVCONTROLPAD/ControladorGrabaciones/web/Record/" + grabaciones[i]);
-        xhr.send(data);
+
+        if (selectBox.selectedIndex === 0) {
+            xhr.open("DELETE", absolutePath + "ControladorGrabaciones/web/Record/" + grabaciones[i]);
+            xhr.send(data);
+        }
+        if (selectBox.selectedIndex === 1) {
+            xhr.open("DELETE", absolutePath + "ControladorGrabaciones/web/RecordPt/" + grabaciones[i]);
+            xhr.send(data);
+        }
+        if (selectBox.selectedIndex === 2) {
+            xhr.open("DELETE", absolutePath + "ControladorGrabaciones/web/RecordEn/" + grabaciones[i]);
+            xhr.send(data);
+        }
+
     }
 }
 
@@ -533,7 +727,7 @@ function checkBoxSeleccionado() {
     }
     grabacionesEliminarwav(grabaciones);
     grabacionesEliminarTxt(grabaciones);
-   
+
 }
 
 btn_borrar.addEventListener('click', function () {
@@ -564,9 +758,9 @@ acomodar.addEventListener('click', function () {
 });
 
 acomodarOrigen.addEventListener('click', function () {
-	sortTableOrigen();
+    sortTableOrigen();
 });
 
 acomodarDestino.addEventListener('click', function () {
-	sortTableDestino();
+    sortTableDestino();
 });

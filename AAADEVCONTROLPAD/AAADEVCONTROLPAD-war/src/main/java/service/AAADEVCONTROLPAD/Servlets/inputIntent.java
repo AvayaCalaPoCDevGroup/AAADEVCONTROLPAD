@@ -126,7 +126,7 @@ public class inputIntent extends HttpServlet {
             System.out.println(transcriptFile.getAbsolutePath());
             JSONObject grabaciones = Arrays.main(recordLocationOnHttpServer);
             System.out.println(grabaciones);
-//            logger.info(grabaciones);
+
             transcriptInput.close();
             saveAudioFile.flush();
             saveAudioFile.close();

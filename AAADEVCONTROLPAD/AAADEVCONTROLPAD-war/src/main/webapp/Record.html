@@ -8,9 +8,9 @@
         <meta name='umansilla' content=''>
 
         <title>Avaya Breeze-Watson</title>
-        
+
         <!-- Bootstrap core CSS -->
-        
+
         <link href="css/styles.css" rel="stylesheet">
         <link href='css/bootstrap.min.css' rel='stylesheet'>
         <link href='css/custom.css' rel='stylesheet'>
@@ -42,29 +42,39 @@
             </div>
             <article>
                 <img class="img-responsive" src="avaya.png" alt="Avaya" width="325" height="100">
-              <!--  <img class="img-responsive" src="ibm-watson-logo-2.jpg" alt="Watson" width="380" height="220" style="float: right"> -->
+                <!--  <img class="img-responsive" src="ibm-watson-logo-2.jpg" alt="Watson" width="380" height="220" style="float: right"> -->
                 <h4>Avaya - Watson</h4>
+
+
+
                 <div class='table-responsive'>
                     <table class='table table-striped table-sm' id='dtBasicExample'>
 
+                        <select id="mySelect">
+                            <option value="Español">Español</option>
+                            <option value="portuguese">Portuguese</option>
+                            <option value="English">English</option>
+                        </select>
+                        <br> 
+                        <br> 
                         <button type="button" class="btn btn-primary" onclick="validar()" style="float: left">Reload</button>
                         <br> 
                         <br> 
                         <button type="button" name="Borrar" id="btn_borrar" class="borrar" style="float: right">Borrar</button>
-                   
-                     
+
+
                         <thead>
                             <tr>
                                 <th id="th-sm">Hora<i class="fa fa-sort float-right" aria-hidden="true"></i></th>
                                 <th id="th-sm1" class="origen-destino">Origen <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
                                 <th id="th-sm2" class="origen-destino">Destino <i class="fa fa-sort float-right" aria-hidden="true"></i></th>
-                                <th>Audio</th>
-                                <th class="transcripcion">Transcripción</th>
-                                <th>Confianza</th>
-                                <th>Intención</th>
-                                <th>Emociones</th>
+                                <th id="th-sm3">Audio</th>
+                                <th class="transcripcion" id="th-sm4" >Transcripción</th>
+                                <th id="th-sm5" >Confianza</th>
+                                <th id="th-sm6">Intención</th>
+                                <th id="th-sm7">Emociones</th>
                                 <th>
-                                     
+
                                     <input type="checkbox" id="borrar_todos" style="margin: 10px auto; display: block;">
                                 </th> 
                             </tr>
@@ -95,17 +105,17 @@
 
         </main>   
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
 
-        
+
         <script src="js/script.js"></script>
-        <script src='https://canvasjs.com/assets/script/jquery.canvasjs.min.js'></script>
+        <script src='js/jquery.canvasjs.min.js'></script>
         <script src='js/bootstrap.min.js'></script>
         <script src='https://unpkg.com/feather-icons/dist/feather.min.js'></script>
         <script src="js/sweetAlertmin.js"></script>
         <script src="js/app3.js"></script>
 
-</body>
+    </body>
 </html>

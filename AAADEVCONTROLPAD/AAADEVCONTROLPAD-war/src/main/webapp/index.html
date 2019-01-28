@@ -1,102 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Start Page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+        <link rel="stylesheet" href="css/styleWatson.css">
+    </head>
+    <body>
+        <form id="regForm" action="">
 
-<!doctype html>
-<html lang='en'>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<meta name='viewport'
-		content='width=device-width, initial-scale=1, shrink-to-fit=no'>
-	<meta name='description' content=''>
-	<meta name='author' content=''>
-	
-	<title>Grabaciones</title>
-	<!-- Bootstrap core CSS -->
-	<link href='css/bootstrap.min.css' rel='stylesheet'>
-	<link href='css/custom.css' rel='stylesheet'>
-	<link href="css/styles.css">
-</head>
+            <h1>Registro:</h1>
 
-<body>
-	<nav
-		class='navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow'>
-		<a class='navbar-brand col-sm-3 col-md-2 mr-0' href='#'>Speech to
-			Text - Watson</a>
-		<ul class='navbar-nav px-3'>
-			<li class='nav-item text-nowrap'><a class='nav-link' href='#'></a>
-			</li>
-		</ul>
-	</nav>
+            <!-- One "tab" for each step in the form: -->
+            <div class="tab">Usuario:
+                <p><input placeholder="Usuario:" oninput="this.className = ''" name="usuario"></p>
+                <p><input type="password" placeholder="Contrase&#241;a" oninput="this.className = ''" name="password"></p>
+            </div>
 
-	<div class='container-fluid'>
-		<div class='row'>
-			<nav class='col-md-2 d-none d-md-block bg-light sidebar'>
-				<div class='sidebar-sticky'>
-					<ul class='nav flex-column'>
-						<li class='nav-item'><a class='nav-link active'
-							href='index.html'> <span data-feather='home'></span> Inicio <span
-								class='sr-only'>(current)</span>
-						</a></li>
-						<li class='nav-item'><a class='nav-link' href='Ajustes.html'>
-								<span data-feather='file'></span> Ajustes
-						</a></li>
-					</ul>
-				</div>
-			</nav>
+            <div class="tab">Pais:
+                <p><input placeholder="Pais" oninput="this.className = ''" name="pais"></p>
+            </div>
 
-			<main role='main' class='col-md-9 ml-sm-auto col-lg-10 px-auto'>
-			<br>
-			<h2>Grabaciones</h2>
-			<div class='table-responsive'>
-				<table class='table table-striped table-sm' id='listagrabaciones'>
-					<thead>
-						<tr>
-							<th>Nombre</th>
-							<th>Accion</th>
-							<th>Transcripcion</th>
-							<th>Precision</th>
-							<th>Intent</th>
-							<th>Emociones</th>
+            <div class="tab">Cliente:
+                <p><input placeholder="Nombre del cliente" oninput="this.className = ''" name="cliente"></p>
+            </div>
 
-						</tr>
-					</thead>
-					<tbody class="tbody" id="tbody">
-					</tbody>
-				</table>
-				<div class="fixed"
-					style="position: fixed; bottom: 88%; right: 10%; width: 300px;">
-					<button type="button" class="btn btn-primary" onclick="validar()">Validar
-						credenciales</button>
-				</div>
-			</div>
-			<input type='text' name='uri' id="urifile" /> <!-- Modal -->
-			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-				aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog" role="document">
+            <div style="overflow:auto;">
+                <div style="float:right;">
+                    <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                    <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                </div>
+            </div>
 
+            <!-- Circles which indicates the steps of the form: -->
+            <div style="text-align:center;margin-top:40px;">
+                <span class="step"></span>
+                <span class="step"></span>
+                <span class="step"></span>
+            </div>
 
-					<div class="modal-body">
-						<div id="chartContainer" style="height: 370px; width: 100%;"></div>
-
-
-					</div>
-				</div>
-			</div>
-
-			</main>
-		</div>
-	</div>
-
-	<!-- Bootstrap core JavaScript
-        ================================================== -->
-	<!-- Placed at the end of the document so the pages load faster -->
-
-	<script src='https://code.jquery.com/jquery-3.3.1.min.js' crossorigin='anonymous'></script>
-	<script src='https://canvasjs.com/assets/script/jquery.canvasjs.min.js'></script>
-	<script src='js/bootstrap.min.js'></script>
-	<!-- Icons -->
-	<script src='https://unpkg.com/feather-icons/dist/feather.min.js'></script>
-	<script src="js/sweetAlertmin.js"></script>
-	<script src="js/app.js"></script>
-
-</body>
+        </form>
+    </body>
+    <script src="js/appWatson.js"></script>
+    <script src="js/sweetAlertmin.js"></script>
 </html>
