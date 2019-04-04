@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 console.log("Funciona app3 29/10/2018");
-//console.log("Funciona app3 29/10/2018");
+// console.log("Funciona app3 29/10/2018");
 var data = null;
 var contador = 0;
 let angv = 0;
@@ -23,7 +23,7 @@ var acomodar = document.getElementById('th-sm');
 var acomodarOrigen = document.getElementById('th-sm1');
 var acomodarDestino = document.getElementById('th-sm2');
 
-//Obtener el dominio. 11 De enero 2019
+// Obtener el dominio. 11 De enero 2019
 
 
 var absolutePath = getAbsolutePath();
@@ -108,7 +108,7 @@ function obtenerGrabaciones() {
             let myObj = JSON.parse(this.responseText);
             for (let i = 0; i <= Object.keys(myObj).length - 1; i++) {
 
-                let tbody = document.querySelector('.tbody'); //<tbody>
+                let tbody = document.querySelector('.tbody'); // <tbody>
 
                 let nuevoTBodyTr = document.createElement("tr");
                 nuevoTBodyTr.setAttribute("id", myObj["Index " + i + ""]);
@@ -118,8 +118,8 @@ function obtenerGrabaciones() {
                 let wav = document.createTextNode(myObj["Index " + i + ""]);
                 let wavNombre = (myObj["Index " + i + ""]);
                 res = wavNombre.replace(".wav", ".txt");
-//                nuevoTBodyTh.appendChild(wav);
-//                nuevoTBodyTr.appendChild(nuevoTBodyTh);
+// nuevoTBodyTh.appendChild(wav);
+// nuevoTBodyTr.appendChild(nuevoTBodyTh);
 
 
                 contador++;
@@ -208,7 +208,7 @@ function obtenerGrabaciones() {
                                 nuevoButtonProcesar.setAttribute("data-target", "#exampleModal");
                                 nuevoButtonProcesar.setAttribute("class", "btn btn-info");
                                 nuevoButtonProcesar.setAttribute("onclick", "Ver(event)");
-                                //Modificado 11 de Enero 2019
+                                // Modificado 11 de Enero 2019
                                 if (selectBox.selectedIndex === 0) {
                                     var texto = document.createTextNode('Ver');
                                 }
@@ -303,15 +303,15 @@ function Ver(e) {
                 var Enfado = angv,
                         Tristeza = sadv,
                         Temor = fearv,
-                        Asco = disgv,
+                        Rechazo = disgv,
                         Alegria = joyv;
 
-                var perfil = Math.max(Enfado, Tristeza, Temor, Asco, Alegria);
+                var perfil = Math.max(Enfado, Tristeza, Temor, Rechazo, Alegria);
 
                 var variableMasAlta = Enfado == perfil ? "Enfado" :
                         Tristeza == perfil ? "Tristeza" :
                         Temor == perfil ? "Temor" :
-                        Asco == perfil ? "Asco" :
+                        Rechazo == perfil ? "Rechazo" :
                         Alegria == perfil ? "Alegria" : null;
 
                 var chart = new CanvasJS.Chart("chartContainer", {
@@ -333,7 +333,7 @@ function Ver(e) {
                                 {y: angv, label: "Enfado"},
                                 {y: sadv, label: "Tristeza"},
                                 {y: fearv, label: "Temor"},
-                                {y: disgv, label: "Asco"},
+                                {y: disgv, label: "Rechazo"},
                                 {y: joyv, label: "Alegría"}
 
                             ]
@@ -346,15 +346,15 @@ function Ver(e) {
                 var Enfado = angv,
                         Tristeza = sadv,
                         Temor = fearv,
-                        Asco = disgv,
+                        Rechazo = disgv,
                         Alegria = joyv;
 
-                var perfil = Math.max(Enfado, Tristeza, Temor, Asco, Alegria);
+                var perfil = Math.max(Enfado, Tristeza, Temor, Rechazo, Alegria);
 
                 var variableMasAlta = Enfado == perfil ? "Irritado" :
                         Tristeza == perfil ? "Tristeza" :
                         Temor == perfil ? "Medo" :
-                        Asco == perfil ? "Nojo" :
+                        Rechazo == perfil ? "Rejeição" :
                         Alegria == perfil ? "Felicidade" : null;
 
                 var chart = new CanvasJS.Chart("chartContainer", {
@@ -376,7 +376,7 @@ function Ver(e) {
                                 {y: angv, label: "Irritado"},
                                 {y: sadv, label: "Tristeza"},
                                 {y: fearv, label: "Medo"},
-                                {y: disgv, label: "Nojo"},
+                                {y: disgv, label: "Rejeição"},
                                 {y: joyv, label: "Felicidade"}
 
                             ]
@@ -389,15 +389,15 @@ function Ver(e) {
                 var Enfado = angv,
                         Tristeza = sadv,
                         Temor = fearv,
-                        Asco = disgv,
+                        Rechazo = disgv,
                         Alegria = joyv;
 
-                var perfil = Math.max(Enfado, Tristeza, Temor, Asco, Alegria);
+                var perfil = Math.max(Enfado, Tristeza, Temor, Rechazo, Alegria);
 
                 var variableMasAlta = Enfado == perfil ? "Anger" :
                         Tristeza == perfil ? "Sadness" :
                         Temor == perfil ? "Fear" :
-                        Asco == perfil ? "Disgust" :
+                        Rechazo == perfil ? "Disgust" :
                         Alegria == perfil ? "Joy" : null;
 
                 var chart = new CanvasJS.Chart("chartContainer", {
@@ -449,7 +449,6 @@ function toggleSideBar() {
 /*
  * Funciones para arreglar Lista
  */
-
 function acomodarValores() {
     console.log("Acomodar");
     var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
@@ -457,24 +456,31 @@ function acomodarValores() {
     switching = true;
     // Set the sorting direction to ascending:
     dir = "asc";
-    /* Make a loop that will continue until
-     no switching has been done: */
+    /*
+	 * Make a loop that will continue until no switching has been done:
+	 */
     while (switching) {
         // Start by saying: no switching is done:
         switching = false;
         rows = table.rows;
-        /* Loop through all table rows (except the
-         first, which contains table headers): */
+        /*
+		 * Loop through all table rows (except the first, which contains table
+		 * headers):
+		 */
         for (i = 1; i < (rows.length - 1); i++) {
             // Start by saying there should be no switching:
             shouldSwitch = false;
-            /* Get the two elements you want to compare,
-             one from current row and one from the next: */
+            /*
+			 * Get the two elements you want to compare, one from current row
+			 * and one from the next:
+			 */
             n = 0;
             x = rows[i].getElementsByTagName("TD")[n];
             y = rows[i + 1].getElementsByTagName("TD")[n];
-            /* Check if the two rows should switch place,
-             based on the direction, asc or desc: */
+            /*
+			 * Check if the two rows should switch place, based on the
+			 * direction, asc or desc:
+			 */
             if (dir === "asc") {
                 if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
                     // If so, mark as a switch and break the loop:
@@ -490,15 +496,19 @@ function acomodarValores() {
             }
         }
         if (shouldSwitch) {
-            /* If a switch has been marked, make the switch
-             and mark that a switch has been done: */
+            /*
+			 * If a switch has been marked, make the switch and mark that a
+			 * switch has been done:
+			 */
             rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
             switching = true;
             // Each time a switch is done, increase this count by 1:
             switchcount++;
         } else {
-            /* If no switching has been done AND the direction is "asc",
-             set the direction to "desc" and run the while loop again. */
+            /*
+			 * If no switching has been done AND the direction is "asc", set the
+			 * direction to "desc" and run the while loop again.
+			 */
             if (switchcount === 0 && dir === "asc") {
                 dir = "desc";
                 switching = true;
@@ -515,24 +525,31 @@ function sortTableOrigen() {
     switching = true;
     // Set the sorting direction to ascending:
     dir = "asc";
-    /* Make a loop that will continue until
-     no switching has been done: */
+    /*
+	 * Make a loop that will continue until no switching has been done:
+	 */
     while (switching) {
         // Start by saying: no switching is done:
         switching = false;
         rows = table.rows;
-        /* Loop through all table rows (except the
-         first, which contains table headers): */
+        /*
+		 * Loop through all table rows (except the first, which contains table
+		 * headers):
+		 */
         for (i = 1; i < (rows.length - 1); i++) {
             // Start by saying there should be no switching:
             shouldSwitch = false;
-            /* Get the two elements you want to compare,
-             one from current row and one from the next: */
+            /*
+			 * Get the two elements you want to compare, one from current row
+			 * and one from the next:
+			 */
             n = 0;
             x = rows[i].children[1].innerText;
             y = rows[i + 1].children[1].innerText;
-            /* Check if the two rows should switch place,
-             based on the direction, asc or desc: */
+            /*
+			 * Check if the two rows should switch place, based on the
+			 * direction, asc or desc:
+			 */
             if (dir === "asc") {
                 if (x.toLowerCase() > y.toLowerCase()) {
                     // If so, mark as a switch and break the loop:
@@ -548,15 +565,19 @@ function sortTableOrigen() {
             }
         }
         if (shouldSwitch) {
-            /* If a switch has been marked, make the switch
-             and mark that a switch has been done: */
+            /*
+			 * If a switch has been marked, make the switch and mark that a
+			 * switch has been done:
+			 */
             rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
             switching = true;
             // Each time a switch is done, increase this count by 1:
             switchcount++;
         } else {
-            /* If no switching has been done AND the direction is "asc",
-             set the direction to "desc" and run the while loop again. */
+            /*
+			 * If no switching has been done AND the direction is "asc", set the
+			 * direction to "desc" and run the while loop again.
+			 */
             if (switchcount === 0 && dir === "asc") {
                 dir = "desc";
                 switching = true;
@@ -573,24 +594,31 @@ function sortTableDestino() {
     switching = true;
     // Set the sorting direction to ascending:
     dir = "asc";
-    /* Make a loop that will continue until
-     no switching has been done: */
+    /*
+	 * Make a loop that will continue until no switching has been done:
+	 */
     while (switching) {
         // Start by saying: no switching is done:
         switching = false;
         rows = table.rows;
-        /* Loop through all table rows (except the
-         first, which contains table headers): */
+        /*
+		 * Loop through all table rows (except the first, which contains table
+		 * headers):
+		 */
         for (i = 1; i < (rows.length - 1); i++) {
             // Start by saying there should be no switching:
             shouldSwitch = false;
-            /* Get the two elements you want to compare,
-             one from current row and one from the next: */
+            /*
+			 * Get the two elements you want to compare, one from current row
+			 * and one from the next:
+			 */
             n = 0;
             x = rows[i].children[2].innerText;
             y = rows[i + 1].children[2].innerText;
-            /* Check if the two rows should switch place,
-             based on the direction, asc or desc: */
+            /*
+			 * Check if the two rows should switch place, based on the
+			 * direction, asc or desc:
+			 */
             if (dir === "asc") {
                 if (x.toLowerCase() > y.toLowerCase()) {
                     // If so, mark as a switch and break the loop:
@@ -606,15 +634,19 @@ function sortTableDestino() {
             }
         }
         if (shouldSwitch) {
-            /* If a switch has been marked, make the switch
-             and mark that a switch has been done: */
+            /*
+			 * If a switch has been marked, make the switch and mark that a
+			 * switch has been done:
+			 */
             rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
             switching = true;
             // Each time a switch is done, increase this count by 1:
             switchcount++;
         } else {
-            /* If no switching has been done AND the direction is "asc",
-             set the direction to "desc" and run the while loop again. */
+            /*
+			 * If no switching has been done AND the direction is "asc", set the
+			 * direction to "desc" and run the while loop again.
+			 */
             if (switchcount === 0 && dir === "asc") {
                 dir = "desc";
                 switching = true;
