@@ -28,6 +28,9 @@ var acomodarDestino = document.getElementById('th-sm2');
 
 var absolutePath = getAbsolutePath();
 
+window.location.replace(absolutePath + "AdminController");
+
+
 var selectBox = document.getElementById("mySelect");
 
 function getAbsolutePath() {

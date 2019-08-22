@@ -7,9 +7,9 @@
 	You can refer DynamicTeamFormation Sample service in SDK for help -->
 <sip-app id="SipApp_ID">
 
-	<app-name>AAADEVCONTROLPAD-1.0.0.0.0
+	<app-name>AAADEVCONTROLPAD-2.0.0.0.2
 	</app-name>
-	<display-name>AAADEVCONTROLPAD-1.0.0.0.0
+	<display-name>AAADEVCONTROLPAD-2.0.0.0.2
 	</display-name>
 	<session-config>
 		<session-timeout>60</session-timeout>

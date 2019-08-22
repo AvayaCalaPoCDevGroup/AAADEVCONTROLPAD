@@ -4,7 +4,7 @@
   <module>
     <web>
       <web-uri>AAADEVCONTROLPAD-war-1.0.0.0.0.war</web-uri>
-      <context-root>AAADEVCONTROLPAD-1.0.0.0.0</context-root>
+      <context-root>AAADEVCONTROLPAD-2.0.0.0.2</context-root>
     </web>
   </module>
   <library-directory>lib</library-directory>

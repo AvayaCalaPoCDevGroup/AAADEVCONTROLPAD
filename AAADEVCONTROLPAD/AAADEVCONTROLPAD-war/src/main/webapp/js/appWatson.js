@@ -9,11 +9,18 @@
 var sumbit = document.getElementById('submit_watson');
 var formulario = document.getElementById('regForm');
 var action = formulario.getAttribute('action');
-
-
+var absolutePath = getAbsolutePath();
+window.location.replace(absolutePath + "AdminController");
 
 var currentTab = 0; // Current tab is set to be the first tab (0)
 showTab(currentTab); // Display the current tab
+
+function getAbsolutePath() {
+    var loc = window.location;
+    var pathName = loc.pathname.substring(0, loc.pathname.lastIndexOf('/') + 1);
+    return loc.href.substring(0, loc.href.length - ((loc.pathname + loc.search + loc.hash).length - pathName.length));
+}
+
 
 function showTab(n) {
     // This function will display the specified tab of the form ...

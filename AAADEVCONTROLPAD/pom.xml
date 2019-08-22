@@ -8,7 +8,7 @@
 
   <properties>
 	  <serviceName>AAADEVCONTROLPAD</serviceName>
-	  <serviceVersion>1.0.0.0.0</serviceVersion>
+	  <serviceVersion>2.0.0.0.2</serviceVersion>
   </properties>
 
   <modules>
